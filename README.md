@@ -36,13 +36,3 @@ A high-performance, full-stack personal portfolio designed and developed to show
 - **Achievements:** Academic performance (ICSE/ISC) and coding milestones.
 - **Certifications:** Verified professional and technical credentials.
 
----
-
-## ⚙️ Local Setup
-
-To run this project locally, follow these steps:
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/yourusername/portfolio-site.git](https://github.com/yourusername/portfolio-site.git)
-   cd portfolio-site
