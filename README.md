@@ -14,7 +14,7 @@ A high-performance, full-stack personal portfolio designed and developed to show
 | **Design** | Figma (High-fidelity wireframing & UI/UX) |
 | **Frontend** | React.js, CSS3 / Tailwind CSS |
 | **Backend** | Node.js, Express |
-| **Deployment** | [Vercel / Netlify / Heroku] |
+| **Deployment** | [Vercel] |
 
 ---
 
