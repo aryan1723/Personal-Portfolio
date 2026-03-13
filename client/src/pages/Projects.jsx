@@ -1,183 +1,257 @@
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
-import { ExploreButton, LoadMoreButton, ShowLessButton } from '../components/Buttons';
+import { NavLink } from 'react-router-dom';
+import { Github, Smile, Binoculars, GraduationCap, Award, Trophy, X, CheckCircle, AlertCircle, Loader, Menu } from 'lucide-react';
+import { useState } from 'react';
+import emailjs from '@emailjs/browser';
+import pfp from '../assets/pfp.png';
 
-const projectsData = [
-  {
-    id: 1,
-    title: 'VantaBlack',
-    category: 'Backend',
-    description: 'VantaBlack is an industrial-grade file encryption tool designed for high-privacy data management. It replaces traditional passwords with a Physical Token system.',
-    tech: 'Java, SHA-512, AES-256, Java Swing',
-    link: 'https://github.com/aryan1723/VantaBlack',
-    image: '/src/assets/projects/vantablack.png'
-  },
-  {
-    id: 2,
-    title: 'HealthStat',
-    category: 'Frontend',
-    description: "It's a web app that gives you a personalized breakdown of your health stats everything from your BMI, BMR, body fat %, water intake, to your daily calorie and nutrient needs.",
-    tech: 'HTML, CSS, JavaScript, Tailwind CSS, Chart.js, and Gemini API',
-    link: 'https://health-stat.onrender.com/',
-    image: '/src/assets/projects/healthstat.png'
-  },
-  {
-    id: 3,
-    title: 'FileOrganizer',
-    category: 'Backend',
-    description: 'Smart File Organizer using Java that instantly declutters any directory. It doesn\'t just move files; it\'s smart enough to handle duplicates, create categories dynamically, and process thousands of files in seconds',
-    tech: 'Java, Java Swing',
-    link: 'https://github.com/aryan1723/FIleOrganizer',
-    image: '/src/assets/projects/fileorganizer.png'
-  },
-  {
-    id: 4,
-    title: 'TravelBuddy',
-    category: 'Fullstack',
-    description: 'TravelBuddy is a web-based solution designed to dismantle linguistic barriers the platform enables users to translate text from images and speech instantly, ensuring they can navigate foreign environments like menus and street signs with ease.',
-    tech: 'HTML, CSS, Google Translate API, PHP, MySQL, RESTful APIs',
-    link: 'https://travelbuddyjourneysimplifier.infinityfreeapp.com/',
-    image: '/src/assets/projects/travelbuddy.png'
-  },
-  {
-    id: 5,
-    title: 'WordSuggestor',
-    category: 'Backend',
-    description: "An incredibly fast, algorithmically-driven predictive text and autocorrect engine. Implements custom Trie Data Structures to analyze prefixes and suggest highly probable word completions instantly during keystrokes.",
-    tech: 'Java, Data Structures, Trie Trees',
-    link: 'https://github.com/aryan1723/WordSuggestor',
-    image: '/src/assets/projects/wordsuggestor.png'
-  },
-  {
-    id: 6,
-    title: 'Nomad Academy',
-    category: 'Fullstack',
-    description: "Nomad Academy is a full-stack educational solution engineered to bridge the digital divide by delivering modern classroom experiences to students in high-altitude or remote regions with intermittent internet access.",
-    tech: 'React, Node.js, Express, MongoDB',
-    link: 'https://github.com/aryan1723/Nomaded',
-    image: '/src/assets/projects/nomaded.png'
-  }
+const RATE_LIMIT_MS = 60 * 60 * 1000;
+
+// Shared social links toolbox block
+const Toolbox = () => (
+  <div className="flex flex-col items-center">
+    <div className="grid grid-cols-2 gap-[8px] p-2 relative">
+      <div className="absolute inset-2 bg-[#caabff] blur-[25px] opacity-70 rounded-full z-0 pointer-events-none"></div>
+      <a href="https://www.linkedin.com/in/aryan-solanki1723/" target="_blank" rel="noopener noreferrer" className="w-[60px] h-[52px] flex items-center justify-center bg-[#caabff] text-white rounded-tl-[16px] rounded-tr-[3px] rounded-bl-[3px] rounded-br-[3px] hover:bg-[#b078fa] transition-colors duration-300 z-10 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+        </svg>
+      </a>
+      <a href="https://github.com/aryan1723" target="_blank" rel="noopener noreferrer" className="w-[60px] h-[52px] flex items-center justify-center bg-[#caabff] text-white rounded-tr-[16px] rounded-tl-[3px] rounded-bl-[3px] rounded-br-[3px] hover:bg-[#b078fa] transition-colors duration-300 z-10 shadow-sm">
+        <Github size={24} fill="currentColor" strokeWidth={0} />
+      </a>
+      <a href="tel:+917017580748" className="w-[60px] h-[52px] flex items-center justify-center bg-[#caabff] text-white rounded-bl-[16px] rounded-tl-[3px] rounded-tr-[3px] rounded-br-[3px] hover:bg-[#b078fa] transition-colors duration-300 z-10 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.12.45 2.33.69 3.58.69a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.24 2.46.69 3.58a1 1 0 01-.21 1.11l-2.36 2.1z" /></svg>
+      </a>
+      <a href="mailto:aryansolanki1723@gmail.com" className="w-[60px] h-[52px] flex items-center justify-center bg-[#caabff] text-white rounded-br-[16px] rounded-tl-[3px] rounded-tr-[3px] rounded-bl-[3px] hover:bg-[#b078fa] transition-colors duration-300 z-10 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+);
+
+const navItems = [
+  { path: '/', label: 'ABOUT ME', icon: Smile },
+  { path: '/projects', label: 'PROJECTS', icon: Binoculars },
+  { path: '/education', label: 'EDUCATION', icon: GraduationCap },
+  { path: '/certificates', label: 'CERTIFICATES', icon: Award },
+  { path: '/achievements', label: 'ACHIEVEMENTS', icon: Trophy }
 ];
 
-const Projects = () => {
-  const [hoveredProject, setHoveredProject] = useState(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [filterMode, setFilterMode] = useState('All');
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(4);
-
-  const handleMouseMove = (e) => {
-    setMousePos({ x: e.clientX + 20, y: e.clientY - 150 });
-  };
-
-  const filteredProjects = projectsData.filter(p => filterMode === 'All' || p.category === filterMode);
-  const categories = ['All', ...new Set(projectsData.map(p => p.category))];
-
+// ── Mobile Hamburger Drawer ──────────────────────────────
+const MobileMenu = ({ onClose }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="w-full min-h-full flex flex-col relative"
-      onMouseMove={handleMouseMove}
+      transition={{ duration: 0.25 }}
+      className="fixed inset-0 z-50 bg-white flex flex-col"
     >
-      <div className="flex justify-between items-start w-full mb-4 mt-2">
-        <h1 className="text-3xl font-medium ">
-          Here are some of my <span className="text-[#3800c2] font-semibold">Projects</span>.
-        </h1>
-        <ExploreButton to="/education" />
-      </div>
-
-      <div className="flex flex-col w-full relative">
-        <div className="absolute top-[8px] right-0 z-20">
-          <div className="relative">
-            <button
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="flex items-center text-[11px] font-semibold tracking-wider bg-[#b291d6] text-white px-4 py-1.5 rounded-md shadow-sm hover:bg-[#a27acb] transition-colors"
-            >
-              {filterMode} <ChevronDown size={14} className="ml-1" />
-            </button>
-            {isFilterOpen && (
-              <div className="absolute top-full right-0 mt-2 bg-white rounded-md shadow-xl border border-gray-100 py-2 min-w-[120px]">
-                {categories.map(cat => (
-                  <div
-                    key={cat}
-                    onClick={() => { setFilterMode(cat); setIsFilterOpen(false); setVisibleCount(4); }}
-                    className="px-4 py-2 hover:bg-gray-50 text-[11px] cursor-pointer text-gray-700 font-medium"
-                  >
-                    {cat}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <img src={pfp} alt="Profile" className="w-10 h-10 rounded-full object-cover border-2 border-[#c8a2fc]" />
+          <span className="font-bold text-[#3800c2] tracking-wider text-sm">ARYAN SOLANKI</span>
         </div>
+        <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100 transition-colors">
+          <X size={22} strokeWidth={2.5} />
+        </button>
+      </div>
 
-        {filteredProjects.slice(0, visibleCount).map((project, index) => (
-          <a
-            key={project.id}
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`py-[20px] group cursor-pointer transition-all duration-300 relative block ${index !== Math.min(filteredProjects.length, visibleCount) - 1 ? 'border-b border-gray-200' : ''}`}
-            onMouseEnter={() => setHoveredProject(project)}
-            onMouseLeave={() => setHoveredProject(null)}
+      {/* Nav */}
+      <nav className="flex-1 px-6 pt-6 flex flex-col gap-1">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            onClick={onClose}
+            className={({ isActive }) =>
+              `flex items-center gap-4 px-4 py-3 rounded-xl text-[14px] font-bold tracking-widest transition-colors ${isActive ? 'bg-[#f0e8ff] text-[#3800c2]' : 'text-gray-700 hover:bg-gray-50'}`
+            }
           >
-            <div className="flex justify-between items-start w-full pr-[140px]">
-              <div className="flex flex-col w-full">
-                <h3 className="text-lg font-bold mb-1 text-gray-900 group-hover:text-[#3800c2] transition-colors">{project.title}</h3>
-                <p className="text-gray-600 text-[12px] leading-relaxed mb-1.5 opacity-90 group-hover:opacity-100 transition-opacity whitespace-pre-wrap">
-                  {project.description}
-                </p>
-                <p className="text-gray-800 font-medium text-[11px]">Tech Stack: {project.tech}</p>
-              </div>
-
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out flex items-center justify-center">
-                <ArrowRight size={24} className="text-[#3800c2]" />
-              </div>
-            </div>
-          </a>
+            {({ isActive }) => (
+              <>
+                <item.icon size={20} strokeWidth={isActive ? 3 : 2} />
+                {item.label}
+              </>
+            )}
+          </NavLink>
         ))}
+      </nav>
+
+      {/* Toolbox */}
+      <div className="px-6 pb-4 flex justify-center">
+        <Toolbox />
       </div>
-
-      <div className="mt-auto flex justify-center w-full pt-12 pb-8 gap-12 z-30 relative overflow-visible">
-        {visibleCount < filteredProjects.length && (
-          <LoadMoreButton onClick={() => setVisibleCount(prev => prev + 2)} text="View more" />
-        )}
-        {visibleCount > 4 && (
-          <ShowLessButton onClick={() => setVisibleCount(4)} text="Show less" />
-        )}
-      </div>
-
-      {/* Floating Image Preview on Hover */}
-      <AnimatePresence>
-        {hoveredProject && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0, scale: 0.8, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="fixed pointer-events-none z-50 w-72 h-48 rounded-xl overflow-hidden shadow-2xl border-4 border-white"
-            style={{
-              left: mousePos.x,
-              top: mousePos.y,
-            }}
-          >
-            <img
-              src={hoveredProject.image}
-              alt={hoveredProject.title}
-              className="w-full h-full object-cover"
-            />
-            {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#3800c2]/40 to-transparent"></div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
     </motion.div>
   );
 };
 
-export default Projects;
+// ── Desktop Sidebar ──────────────────────────────────────
+const Sidebar = () => {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [sendError, setSendError] = useState(false);
+  const [rateLimited, setRateLimited] = useState(() => {
+    const last = localStorage.getItem('contact_last_sent');
+    return last && Date.now() - Number(last) < RATE_LIMIT_MS;
+  });
+  const [cooldownLeft, setCooldownLeft] = useState(() => {
+    const last = localStorage.getItem('contact_last_sent');
+    if (!last) return 0;
+    const remaining = RATE_LIMIT_MS - (Date.now() - Number(last));
+    return remaining > 0 ? Math.ceil(remaining / 60000) : 0;
+  });
+
+  const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (honeypot) return;
+    const last = localStorage.getItem('contact_last_sent');
+    if (last && Date.now() - Number(last) < RATE_LIMIT_MS) {
+      const mins = Math.ceil((RATE_LIMIT_MS - (Date.now() - Number(last))) / 60000);
+      setCooldownLeft(mins);
+      setRateLimited(true);
+      return;
+    }
+    setSending(true); setSent(false); setSendError(false);
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        { from_name: formData.name, from_email: formData.email, subject: formData.subject, message: formData.message, to_email: 'aryansolanki1723@gmail.com' },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      localStorage.setItem('contact_last_sent', String(Date.now()));
+      setSent(true); setRateLimited(false);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSent(false), 4000);
+    } catch {
+      setSendError(true);
+      setTimeout(() => setSendError(false), 4000);
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <>
+      {/* ── Mobile Hamburger Button (visible only on mobile) ── */}
+      <button
+        onClick={() => setIsMobileMenuOpen(true)}
+        className="md:hidden fixed top-4 left-4 z-40 w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-xl shadow-md hover:bg-gray-50 transition-colors"
+        aria-label="Open menu"
+      >
+        <Menu size={20} strokeWidth={2.5} className="text-[#3800c2]" />
+      </button>
+
+      {/* ── Mobile Drawer ── */}
+      <AnimatePresence>
+        {isMobileMenuOpen && <MobileMenu onClose={() => setIsMobileMenuOpen(false)} />}
+      </AnimatePresence>
+
+      {/* ── Desktop Sidebar (hidden on mobile) ── */}
+      <aside className="hidden md:flex w-80 h-full border-r border-gray-200 flex-col justify-between shrink-0 bg-white z-20 overflow-hidden relative">
+        <div className="flex-1 w-full flex flex-col items-center justify-evenly py-6">
+          {/* Profile Section */}
+          <div className="flex flex-col items-center">
+            <div className="w-38 h-38 rounded-full overflow-hidden border-4 border-[#F3F4F6] shadow-[0_0_30px_rgba(140,82,255,0.4)] relative group transition-shadow duration-500">
+              <img src={pfp} alt="Profile" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" />
+              <div className="absolute inset-0 bg-white/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none rounded-full"></div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <nav className="w-full flex justify-center">
+            <div className="flex flex-col gap-1 items-start w-[160px]">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `flex items-center text-[14px] font-inter font-semibold tracking-widest transition-colors duration-300 relative group h-8 ${isActive ? 'text-[#3800c2]' : 'text-gray-900 hover:text-[#3800c2]'}`
+                  }
+                >
+                  {({ isActive }) => (
+                    <div className="flex flex-row items-center w-full relative">
+                      <item.icon size={21} strokeWidth={isActive ? 3 : 2.5} className="z-10 transition-colors duration-300" />
+                      <div className={`absolute left-[40px] w-[2.5px] h-[22px] rounded-full bg-[#3800c2] transition-all duration-300 ease-out origin-center ${isActive ? 'opacity-50 scale-y-100' : 'opacity-0 scale-y-0'}`}></div>
+                      <span className={`ml-6 transition-transform duration-300 font-bold ease-in-out ${isActive ? 'translate-x-3 text-[16px]' : 'translate-x-0 text-[15px]'}`}>{item.label}</span>
+                    </div>
+                  )}
+                </NavLink>
+              ))}
+            </div>
+          </nav>
+
+          {/* Toolbox */}
+          <Toolbox />
+        </div>
+
+        {/* Contact Form / Button */}
+        <AnimatePresence>
+          {isContactOpen ? (
+            <motion.div
+              initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="absolute inset-x-0 bottom-0 z-30 bg-white rounded-t-[30px] border border-gray-300 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] flex flex-col pt-0 pb-6 px-0 overflow-hidden"
+              style={{ height: '520px' }}
+            >
+              <div className="absolute -top-[500px] left-0 right-0 h-[500px] bg-white/40 backdrop-blur-md z-[-1] pointer-events-none" />
+              <div className="w-full bg-[#c8a2fc] py-3 flex items-center justify-between px-6 mb-4">
+                <span className="text-white font-semibold text-xs tracking-widest text-center w-full">CONTACT</span>
+                <button onClick={() => setIsContactOpen(false)} className="absolute right-4 text-white hover:text-gray-200">
+                  <X size={16} strokeWidth={3} />
+                </button>
+              </div>
+              <form onSubmit={handleSubmit} className="px-6 space-y-3 flex-1 overflow-y-auto">
+                <div><label className="block text-[11px] font-bold text-gray-800 mb-1">Name</label><input name="name" value={formData.name} onChange={handleChange} required type="text" className="w-full px-3 py-2 bg-[#f0f0f0] border border-gray-300 rounded-md text-sm focus:outline-none focus:border-[#c8a2fc] transition-colors" /></div>
+                <div><label className="block text-[11px] font-bold text-gray-800 mb-1">Email</label><input name="email" value={formData.email} onChange={handleChange} required type="email" className="w-full px-3 py-2 bg-[#f0f0f0] border border-gray-300 rounded-md text-sm focus:outline-none focus:border-[#c8a2fc] transition-colors" /></div>
+                <div><label className="block text-[11px] font-bold text-gray-800 mb-1">Subject</label><input name="subject" value={formData.subject} onChange={handleChange} required type="text" className="w-full px-3 py-2 bg-[#f0f0f0] border border-gray-300 rounded-md text-sm focus:outline-none focus:border-[#c8a2fc] transition-colors" /></div>
+                <div><label className="block text-[11px] font-bold text-gray-800 mb-1">Message</label><textarea name="message" value={formData.message} onChange={handleChange} required rows="4" className="w-full px-3 py-2 bg-[#f0f0f0] border border-gray-300 rounded-md text-sm focus:outline-none focus:border-[#c8a2fc] transition-colors resize-none"></textarea></div>
+                <div className="pt-2 pb-2">
+                  <input type="text" name="_hp_field" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+                  {sent && <div className="flex items-center gap-2 text-green-600 text-xs font-semibold mb-2"><CheckCircle size={14} /> Message sent successfully!</div>}
+                  {sendError && <div className="flex items-center gap-2 text-red-500 text-xs font-semibold mb-2"><AlertCircle size={14} /> Failed to send. Please try again.</div>}
+                  {rateLimited && <div className="flex items-center gap-2 text-amber-600 text-xs font-semibold mb-2"><AlertCircle size={14} /> Please wait {cooldownLeft}m before sending again.</div>}
+                  <button type="submit" disabled={sending || rateLimited} className="w-full py-2.5 bg-[#c8a2fc] hover:bg-[#b078fa] disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-md font-semibold text-xs tracking-widest transition-colors shadow-sm flex items-center justify-center gap-2">
+                    {sending ? <><Loader size={14} className="animate-spin" /> SENDING...</> : 'SEND'}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          ) : (
+            <div className="w-full mt-auto sticky bottom-0 z-10 bg-white">
+              <button
+                onClick={() => setIsContactOpen(true)}
+                className="w-full py-2 bg-[#c8a2fc] hover:bg-[#b078fa] border-t border-l border-r border-black text-white font-semibold tracking-widest text-[13px] transition-all duration-300 rounded-t-[30px] rounded-b-none border-b-0 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]"
+              >
+                CONTACT
+              </button>
+            </div>
+          )}
+        </AnimatePresence>
+
+        {/* Blur overlay */}
+        <AnimatePresence>
+          {isContactOpen && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="absolute top-0 left-0 right-0 bottom-[520px] bg-white/50 backdrop-blur-[8px] z-20 pointer-events-none"
+            />
+          )}
+        </AnimatePresence>
+      </aside>
+    </>
+  );
+};
+
+export default Sidebar;
