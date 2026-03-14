@@ -7,22 +7,22 @@ const educationData = [
   {
     year: '2023 - 2027',
     institution: 'Lovely Professional University',
-    degree: 'Bachelor of Technology - Computer Science and Engineering',
-    score: ': CGPA: 7.81',
+    degree: 'Bachelor of Technology - Computer Science and Engineering :',
+    score: 'CGPA: 7.81',
     location: '(Phagwara,Punjab)'
   },
   {
     year: '2020 - 2022',
     institution: 'B.P.S Public School',
     degree: 'Intermediate',
-    score: 'Percentage: 85.75%',
+    score: '',
     location: '(Etah,Uttarpradesh)'
   },
   {
     year: '2019 - 2020',
     institution: 'B.P.S Public School',
     degree: 'Matriculation',
-    score: 'Percentage: 87.4%',
+    score: 'P',
     location: '(Etah,Uttarpradesh)'
   }
 ];
