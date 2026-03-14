@@ -3,7 +3,7 @@
 A high-performance, full-stack personal portfolio designed and developed to showcase my journey as a Software Engineer. This project reflects my complete development lifecycle—from UI/UX design in Figma to a fully functional React and Node.js deployment.
 
 ## 🌐 Live Demo
-[**View Live Portfolio**](https://personal-portfolio-eight-nu-78.vercel.app/) | [**Figma Design Link**](https://www.figma.com/design/cPKM3aKw9JUXYiyUbtxWFs/Untitled?node-id=0-1&t=OsIVpyLpvk5on2AD-1)
+[**View Live Portfolio**](https://aryansolankiportfolio.vercel.app/) | [**Figma Design Link**](https://www.figma.com/design/cPKM3aKw9JUXYiyUbtxWFs/Untitled?node-id=0-1&t=OsIVpyLpvk5on2AD-1)
 
 ---
 
