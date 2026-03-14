@@ -90,7 +90,7 @@ const Projects = () => {
       className="w-full min-h-full flex flex-col relative"
       onMouseMove={handleMouseMove}
     >
-      <div className="flex justify-between items-start w-full mb-4 mt-2">
+      <div className="flex justify-between items-start w-full mb-6 mt-0">
         <h1 className="text-3xl font-medium ">
           Here are some of my <span className="text-[#3800c2] font-semibold">Projects</span>.
         </h1>
@@ -132,7 +132,7 @@ const Projects = () => {
             onMouseEnter={() => setHoveredProject(project)}
             onMouseLeave={() => setHoveredProject(null)}
           >
-            <div className="flex justify-between items-start w-full pr-[140px]">
+            <div className="flex justify-between items-start w-full pr-4 md:pr-[140px]">
               <div className="flex flex-col w-full">
                 <h3 className="text-lg font-bold mb-1 text-gray-900 group-hover:text-[#3800c2] transition-colors">{project.title}</h3>
                 <p className="text-gray-600 text-[12px] leading-relaxed mb-1.5 opacity-90 group-hover:opacity-100 transition-opacity whitespace-pre-wrap">

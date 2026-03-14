@@ -26,16 +26,16 @@ const Achievements = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="w-full h-full max-w-4xl"
+      className="w-full h-full"
     >
-      <div className="flex items-center justify-between w-full mb-12">
+      <div className="flex items-center justify-between w-full mb-6">
         <h1 className="text-3xl font-medium">
           My <span className="text-[#3800c2] font-semibold">Achievements.</span>
         </h1>
         <ExploreButton to="/" text="to first page" />
       </div>
 
-      <div className="flex flex-col gap-3 mt-6 w-full pr-12 relative z-10">
+      <div className="flex flex-col gap-3 mt-6 w-full pr-0 md:pr-4 relative z-10">
         {achievements.map((ach) => (
           <motion.div
             key={ach.id}

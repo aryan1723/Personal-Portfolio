@@ -2,7 +2,7 @@ import { ArrowDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const ExploreButton = ({ to, text = "to next page" }) => (
-  <Link to={to} className="group flex flex-col justify-center bg-[#3800c2] text-white py-2.5 rounded-lg hover:bg-[#2c0099] transition-all w-[140px] shadow-[0_4px_14px_0_rgba(56,0,194,0.39)] overflow-hidden">
+  <Link to={to} className="hidden md:flex group flex-col justify-center bg-[#3800c2] text-white py-2.5 rounded-lg hover:bg-[#2c0099] transition-all w-[140px] shadow-[0_4px_14px_0_rgba(56,0,194,0.39)] overflow-hidden">
     <span className="font-semibold text-[14px] mb-1 leading-none text-left pl-4 w-full">Explore</span>
     <div className="flex items-center w-[80%] group-hover:w-[95%] transition-all duration-300 relative mt-1 mb-1">
       {/* Line starting from absolute left border connected to border */}

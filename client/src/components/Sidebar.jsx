@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
-import { Github, Smile, Binoculars, GraduationCap, Award, Trophy, X, CheckCircle, AlertCircle, Loader, Menu } from 'lucide-react';
+import { Github, Smile, Binoculars, GraduationCap, Award, Trophy, X, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import pfp from '../assets/pfp.png';
@@ -21,7 +21,7 @@ const Toolbox = () => (
         <Github size={24} fill="currentColor" strokeWidth={0} />
       </a>
       <a href="tel:+917017580748" className="w-[60px] h-[52px] flex items-center justify-center bg-[#caabff] text-white rounded-bl-[16px] rounded-tl-[3px] rounded-tr-[3px] rounded-br-[3px] hover:bg-[#b078fa] transition-colors duration-300 z-10 shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.12.45 2.33.69 3.58.69a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.24 2.46.69 3.58a1 1 0 01-.21 1.11l-2.36 2.1z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.12.45 2.33.69 3.58.69a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.24 2.46.69 3.58a1 1 0 01-.21 1.11l-2.36 2.1z" /></svg>
       </a>
       <a href="mailto:aryansolanki1723@gmail.com" className="w-[60px] h-[52px] flex items-center justify-center bg-[#caabff] text-white rounded-br-[16px] rounded-tl-[3px] rounded-tr-[3px] rounded-bl-[3px] hover:bg-[#b078fa] transition-colors duration-300 z-10 shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -94,7 +94,6 @@ const MobileMenu = ({ onClose }) => {
 // ── Desktop Sidebar ──────────────────────────────────────
 const Sidebar = () => {
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [honeypot, setHoneypot] = useState('');
   const [sending, setSending] = useState(false);
@@ -145,29 +144,24 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* ── Mobile Hamburger Button (visible only on mobile) ── */}
-      <button
-        onClick={() => setIsMobileMenuOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-40 w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-xl shadow-md hover:bg-gray-50 transition-colors"
-        aria-label="Open menu"
-      >
-        <Menu size={20} strokeWidth={2.5} className="text-[#3800c2]" />
-      </button>
-
-      {/* ── Mobile Drawer ── */}
-      <AnimatePresence>
-        {isMobileMenuOpen && <MobileMenu onClose={() => setIsMobileMenuOpen(false)} />}
-      </AnimatePresence>
-
       {/* ── Desktop Sidebar (hidden on mobile) ── */}
       <aside className="hidden md:flex w-80 h-full border-r border-gray-200 flex-col justify-between shrink-0 bg-white z-20 overflow-hidden relative">
         <div className="flex-1 w-full flex flex-col items-center justify-evenly py-6">
-          {/* Profile Section */}
+          {/* Profile Section — with Resume Download on hover */}
           <div className="flex flex-col items-center">
-            <div className="w-38 h-38 rounded-full overflow-hidden border-4 border-[#F3F4F6] shadow-[0_0_30px_rgba(140,82,255,0.4)] relative group transition-shadow duration-500">
-              <img src={pfp} alt="Profile" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" />
-              <div className="absolute inset-0 bg-white/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none rounded-full"></div>
-            </div>
+            <a
+              href="https://drive.google.com/file/d/1jL5dLWJ_SPBfMSaZVfKvZ6s9lk6K8oe1/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-38 h-38 rounded-full overflow-hidden border-4 border-[#F3F4F6] shadow-[0_0_30px_rgba(140,82,255,0.4)] relative group transition-shadow duration-500 block cursor-pointer"
+              title="Download Resume"
+            >
+              <img src={pfp} alt="Profile" className="w-full h-full object-cover transition-all duration-400 group-hover:scale-105 group-hover:blur-[3px] group-hover:brightness-75 relative z-10" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 rounded-full bg-[#3800c2]/30 backdrop-blur-[1px]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-1"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span className="text-white text-[9px] font-bold tracking-wider uppercase text-center leading-tight px-1">Download<br/>Resume</span>
+              </div>
+            </a>
           </div>
 
           {/* Navigation */}
@@ -241,11 +235,11 @@ const Sidebar = () => {
           )}
         </AnimatePresence>
 
-        {/* Blur overlay */}
+        {/* Full-sidebar blur overlay when contact is open */}
         <AnimatePresence>
           {isContactOpen && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="absolute top-0 left-0 right-0 bottom-[520px] bg-white/50 backdrop-blur-[8px] z-20 pointer-events-none"
+              className="absolute inset-0 bg-white/50 backdrop-blur-[8px] z-20 pointer-events-none"
             />
           )}
         </AnimatePresence>

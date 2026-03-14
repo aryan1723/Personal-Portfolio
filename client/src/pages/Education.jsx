@@ -56,7 +56,7 @@ const Education = () => {
       transition={{ duration: 0.5 }}
       className="w-full h-full pb-20"
     >
-      <div className="flex items-center justify-between w-full mb-12">
+      <div className="flex items-center justify-between w-full mb-6">
         <h1 className="text-3xl font-medium">
           My Education & <span className="text-[#3800c2] font-semibold">Expertise.</span>
         </h1>
@@ -66,31 +66,31 @@ const Education = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mt-8">
 
         {/* Left Col: Education Timeline */}
-        <div className="relative border-l-[2px] border-[#e5d5ff] ml-[56px] pl-[10px] mt-4 space-y-8 w-full md:pr-4">
+        <div className="relative border-l-[2px] border-[#e5d5ff] ml-[80px] md:ml-[56px] pl-[10px] mt-4 space-y-8 w-full pr-4 md:pr-4">
           {educationData.map((edu, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="relative pl-6"
+              className="relative pl-4 md:pl-6"
             >
-              <div className="absolute -left-[19px] top-1.5 w-3.5 h-3.5 rounded-full bg-white border-[3px] border-[#3800c2]"></div>
-              <div className="absolute -left-[84px] top-[4px] w-max whitespace-nowrap text-right text-[10px] font-semibold text-[#3800c2] tracking-tighter">
+              <div className="absolute -left-[17px] top-1.5 w-3.5 h-3.5 rounded-full bg-white border-[3px] border-[#3800c2]"></div>
+              <div className="absolute -left-[80px] top-[4px] w-max whitespace-nowrap text-right text-[10px] sm:text-[11px] font-bold text-[#3800c2] tracking-tighter">
                 {edu.year}
               </div>
 
               <div className="bg-[#fcfaff] p-3.5 rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-[#e5d5ff] hover:shadow-md transition-shadow">
-                <h3 className="font-bold text-gray-900 text-[14px] leading-tight mb-1">{edu.institution}</h3>
-                <p className="text-[12px] text-gray-700 font-medium leading-tight">{edu.degree}: <span className="font-bold">{edu.score}</span></p>
-                <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-wider">{edu.location}</p>
+                <h3 className="font-bold text-gray-900 text-[13px] md:text-[14px] leading-tight mb-1">{edu.institution}</h3>
+                <p className="text-[11px] md:text-[12px] text-gray-700 font-medium leading-tight">{edu.degree}: <span className="font-bold">{edu.score}</span></p>
+                <p className="text-[9px] md:text-[10px] text-gray-500 mt-1 uppercase tracking-wider">{edu.location}</p>
               </div>
             </motion.div>
           ))}
         </div>
 
         {/* Right Col: About Text & Images */}
-        <div className="flex flex-col ml-0 md:ml-6">
+        <div className="hidden lg:flex flex-col ml-0 md:ml-6">
           <h3 className="text-xl font-bold mb-1 tracking-wider">ABOUT ME</h3>
           <p className="text-gray-500 text-sm leading-relaxed mb-4 font-light">
             Hi, I'm Aryan. I'm a Computer Science student and Full Stack Web Developer. I enjoy building practical, secure, and user-centric applications from the ground up. Whether I'm working with React and Node.js or developing backend systems with Java and Django, I love tackling complex problems and bringing ideas to life through code.
@@ -110,23 +110,25 @@ const Education = () => {
       </div>
 
       {/* Skills Section */}
-      <div className="mt-16 w-full flex justify-center items-center flex-col mb-24 relative z-10">
+      <div className="mt-6 md:mt-16 w-full flex justify-center items-center flex-col mb-16 relative z-10">
         <h2 className="text-2xl font-bold mb-2">My Skill Sets</h2>
-        <p className="text-gray-500 text-sm mb-6">A showcase of technologies I've mastered on my journey as a developer.</p>
+        <p className="text-gray-500 text-sm mb-6 text-center px-4">A showcase of technologies I've mastered on my journey as a developer.</p>
 
-        <div className="flex space-x-2 mb-8">
-          {tabs.map((tab, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-1.5 text-xs rounded-md transition-colors ${activeTab === tab ? 'bg-[#3800c2] text-white' : 'bg-[#4B5563] text-white hover:bg-gray-800'}`}
-            >
-              {tab}
-            </button>
-          ))}
+        <div className="w-full max-w-xl pb-2 mb-6 md:mb-8">
+          <div className="flex flex-wrap justify-center items-center gap-2 px-2">
+            {tabs.map((tab, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveTab(tab)}
+                className={`px-3 md:px-4 py-1.5 text-[11px] md:text-xs rounded-md transition-colors whitespace-nowrap ${activeTab === tab ? 'bg-[#3800c2] text-white shadow-sm' : 'bg-[#4B5563] text-white hover:bg-gray-800'}`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 w-full mb-[80px]">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-[260px] sm:w-[350px] md:w-full max-w-2xl mx-auto mb-[80px]">
           {filteredSkills.map((skill, index) => (
             <motion.div
               key={index}

@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import MobileHeader from './MobileHeader';
 
 const Layout = () => {
   return (
@@ -17,11 +18,12 @@ const Layout = () => {
 
       {/* Card container — full screen on mobile, floating card on desktop */}
       <div className="w-full md:max-w-[1280px] h-screen md:h-[85vh] md:min-h-[700px] bg-white md:rounded-xl md:shadow-lg md:border md:border-gray-400 flex overflow-hidden relative">
+        <MobileHeader />
         <Sidebar />
 
         {/* Main Content Area */}
         <main className="flex-1 relative z-10 h-full overflow-hidden bg-white">
-          <div className="h-full flex flex-col pt-16 px-4 pb-20 md:pt-12 md:px-12 md:pb-28 relative overflow-y-auto no-scrollbar">
+          <div className="h-full flex flex-col pt-20 px-4 pb-20 md:pt-12 md:px-12 md:pb-28 relative overflow-y-auto no-scrollbar">
             <Outlet />
           </div>
           {/* Bottom Blush Gradient Overlay */}
