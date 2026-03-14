@@ -22,7 +22,7 @@ const educationData = [
     year: '2019 - 2020',
     institution: 'B.P.S Public School',
     degree: 'Matriculation',
-    score: 'P',
+    score: '',
     location: '(Etah,Uttarpradesh)'
   }
 ];

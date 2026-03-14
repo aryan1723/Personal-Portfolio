@@ -38,3 +38,24 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Smooth infinite marquee animation - Move to utility layer for Tailwind v4 processing */
+@utility marquee-track {
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+  
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  0%   { 
+    -webkit-transform: translateX(0);
+    transform: translateX(0); 
+  }
+  100% { 
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%); 
+  }
+}
