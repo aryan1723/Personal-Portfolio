@@ -15,14 +15,12 @@ const educationData = [
     year: '2020 - 2022',
     institution: 'B.P.S Public School',
     degree: 'Intermediate',
-    score: 'Percentage: 85.75%',
     location: '(Etah,Uttarpradesh)'
   },
   {
     year: '2019 - 2020',
     institution: 'B.P.S Public School',
     degree: 'Matriculation',
-    score: 'Percentage: 87.4%',
     location: '(Etah,Uttarpradesh)'
   }
 ];
