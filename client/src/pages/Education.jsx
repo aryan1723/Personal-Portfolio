@@ -8,21 +8,21 @@ const educationData = [
     year: '2023 - 2027',
     institution: 'Lovely Professional University',
     degree: 'Bachelor of Technology - Computer Science and Engineering',
-    score: 'CGPA: 7.81',
+    score: ': CGPA: 7.81',
     location: '(Phagwara,Punjab)'
   },
   {
     year: '2020 - 2022',
     institution: 'B.P.S Public School',
     degree: 'Intermediate',
-    score: 'Percentage: 85.75%',
+    score: '',
     location: '(Etah,Uttarpradesh)'
   },
   {
     year: '2019 - 2020',
     institution: 'B.P.S Public School',
     degree: 'Matriculation',
-    score: 'Percentage: 87.4%',
+    score: '',
     location: '(Etah,Uttarpradesh)'
   }
 ];
@@ -82,7 +82,7 @@ const Education = () => {
 
               <div className="bg-[#fcfaff] p-3.5 rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-[#e5d5ff] hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-gray-900 text-[13px] md:text-[14px] leading-tight mb-1">{edu.institution}</h3>
-                <p className="text-[11px] md:text-[12px] text-gray-700 font-medium leading-tight">{edu.degree}: <span className="font-bold">{edu.score}</span></p>
+                <p className="text-[11px] md:text-[12px] text-gray-700 font-medium leading-tight">{edu.degree} <span className="font-bold">{edu.score}</span></p>
                 <p className="text-[9px] md:text-[10px] text-gray-500 mt-1 uppercase tracking-wider">{edu.location}</p>
               </div>
             </motion.div>
