@@ -4,6 +4,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { ExploreButton, LoadMoreButton, ShowLessButton } from '../components/Buttons';
 
 import vantaImg from '../assets/Projects/vantablack.png';
+import cleanSweepImg from '../assets/Projects/CleanSweep.png';
 import healthImg from '../assets/Projects/healthstat.png';
 import fileImg from '../assets/Projects/fileorganizer.png';
 import travelImg from '../assets/Projects/travelbuddy.png';
@@ -22,6 +23,15 @@ const projectsData = [
   },
   {
     id: 2,
+    title: 'CleenSweep',
+    category: 'Backend',
+    description: 'A native Windows utility built in Java that securely and permanently shreds files using synchronous binary overwriting. Features a self-extracting native installer and seamless right-click context menu integration.',
+    tech: 'Java, Windows Shell Extension',
+    link: 'https://github.com/aryan1723/CleanSweep',
+    image: cleanSweepImg
+  },
+  {
+    id: 3,
     title: 'HealthStat',
     category: 'Frontend',
     description: "It's a web app that gives you a personalized breakdown of your health stats everything from your BMI, BMR, body fat %, water intake, to your daily calorie and nutrient needs.",
@@ -30,7 +40,7 @@ const projectsData = [
     image: healthImg
   },
   {
-    id: 3,
+    id: 4,
     title: 'FileOrganizer',
     category: 'Backend',
     description: 'Smart File Organizer using Java that instantly declutters any directory. It doesn\'t just move files; it\'s smart enough to handle duplicates, create categories dynamically, and process thousands of files in seconds',
@@ -39,7 +49,7 @@ const projectsData = [
     image: fileImg
   },
   {
-    id: 4,
+    id: 5,
     title: 'TravelBuddy',
     category: 'Fullstack',
     description: 'TravelBuddy is a web-based solution designed to dismantle linguistic barriers the platform enables users to translate text from images and speech instantly, ensuring they can navigate foreign environments like menus and street signs with ease.',
@@ -48,7 +58,7 @@ const projectsData = [
     image: travelImg
   },
   {
-    id: 5,
+    id: 6,
     title: 'WordSuggestor',
     category: 'Backend',
     description: "An incredibly fast, algorithmically-driven predictive text and autocorrect engine. Implements custom Trie Data Structures to analyze prefixes and suggest highly probable word completions instantly during keystrokes.",
@@ -57,7 +67,7 @@ const projectsData = [
     image: wordImg
   },
   {
-    id: 6,
+    id: 7,
     title: 'Nomad Academy',
     category: 'Fullstack',
     description: "Nomad Academy is a full-stack educational solution engineered to bridge the digital divide by delivering modern classroom experiences to students in high-altitude or remote regions with intermittent internet access.",
@@ -94,7 +104,7 @@ const Projects = () => {
         <h1 className="text-3xl font-medium ">
           Here are some of my <span className="text-[#3800c2] font-semibold">Projects</span>.
         </h1>
-        <ExploreButton to="/education" />
+        <ExploreButton to="/education" className="hidden md:flex" />
       </div>
 
       <div className="flex flex-col w-full relative">
